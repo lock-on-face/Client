@@ -13,6 +13,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/Homescreen';
+import LockerScreen from './src/screens/LockerScreen'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -52,12 +53,18 @@ const HomeStackNavigator = createStackNavigator({
       navigationOptions: () => ({
         header: null
       })
+    },
+    Locker: {
+      screen: LockerScreen,
+      navigationOptions: () => ({
+        header: null
+      })
     }
 })
 
 const SwitchScreen = createSwitchNavigator({
     Auth: WelcomeStackNavigator,
-    Home: HomeStackNavigator
+    Home: HomeStackNavigator,
 })
 
 const styles = StyleSheet.create({
