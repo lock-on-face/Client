@@ -8,6 +8,11 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import WelcomeScreen from './src/screens/WelcomeScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/Homescreen';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -16,18 +21,44 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <SwitchScreen />
     );
   }
 }
+
+const WelcomeStackNavigator = createStackNavigator({
+    Welcome: {
+      screen: WelcomeScreen,
+      navigationOptions: () => ({
+        header: null
+      })
+    },
+
+    Register: {
+      screen: RegisterScreen
+    },
+
+    Login: {
+      screen: LoginScreen
+    }
+})
+
+const HomeStackNavigator = createStackNavigator({
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: () => ({
+        header: null
+      })
+    }
+})
+
+const SwitchScreen = createSwitchNavigator({
+    Auth: WelcomeStackNavigator,
+    Home: HomeStackNavigator
+})
 
 const styles = StyleSheet.create({
   container: {
