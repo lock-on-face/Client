@@ -12,6 +12,7 @@ import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/Homescreen';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -45,8 +46,18 @@ const WelcomeStackNavigator = createStackNavigator({
     }
 })
 
+const HomeStackNavigator = createStackNavigator({
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: () => ({
+        header: null
+      })
+    }
+})
+
 const SwitchScreen = createSwitchNavigator({
-    Auth: WelcomeStackNavigator
+    Auth: WelcomeStackNavigator,
+    Home: HomeStackNavigator
 })
 
 const styles = StyleSheet.create({

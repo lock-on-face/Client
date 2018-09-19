@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
 
 export default class RegisterScreen extends React.Component {
     render () {
         return (
-            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'brown', height: 620}}>
+            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'brown', height: 620}}>
                 <Image 
                 style={{ width: 80, height: 80, marginTop: 10, marginBottom: 10}}
                 source={require('../images/lockers.png')} />
@@ -30,10 +30,12 @@ export default class RegisterScreen extends React.Component {
                 placeholderTextColor="white"
                 placeholder="Password" />
 
-                <TouchableOpacity style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}>
+                <TouchableOpacity 
+                style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}
+                 >
                     <Text style={{ textAlign: 'center', paddingVertical: 12 }}>Submit</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         )
     }
 }

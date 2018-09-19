@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text, Image, StyleSheet,TouchableOpacity } from 'react-native';
+import { View,Text, Image, StyleSheet,TouchableOpacity, ImageBackground } from 'react-native';
 
 export default class WelcomeScreen extends React.Component {
     render () {
