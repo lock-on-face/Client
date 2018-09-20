@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
+import axios from 'axios';
 
 export default class LoginForm extends React.Component {
     constructor() {
@@ -11,20 +12,23 @@ export default class LoginForm extends React.Component {
         }
     }
 
-    setUsername = (e) => {
-
-    }
-
-    setEmail = (e) => {
-
-    }
-
-    setPassword = (e) => {
-
-    }
-
     Login = () => {
-
+        // axios({
+        //     method: 'post',
+        //     url: `http://192.168.0.107:3002/users/signin`,
+        //     data: {
+        //         username: this.state.username,
+        //         password: this.state.password
+        //     }
+        // })
+        // .then((result) => {
+        //     this.props.navigation.navigate('Home')
+        //     console.log(result);
+        // })
+        // .catch((err) => {
+        //     console.log(err.message);
+        // });
+        this.props.navigation.navigate('Home')
     }
 
     render () {
@@ -47,7 +51,7 @@ export default class LoginForm extends React.Component {
 
                 <TouchableOpacity 
                 style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}
-                onPress={() => {this.props.navigation.navigate('Home')}}>
+                onPress={() => this.Login()}>
                     <Text style={{ textAlign: 'center', paddingVertical: 12 }}>Submit</Text>
                 </TouchableOpacity>
             </ScrollView>

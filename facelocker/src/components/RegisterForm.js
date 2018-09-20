@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
+import axios from 'axios';
 
 export default class RegisterForm extends React.Component {
     constructor() {
@@ -10,75 +11,81 @@ export default class RegisterForm extends React.Component {
             password: '',
             phone: ''
         }
+        this.registerUser = this.registerUser.bind(this)
     }
 
-    setUsername = (e) => {
-
-    }
-
-    setEmail = (e) => {
-
-    }
-
-    setPassword = (e) => {
-
-    }
-
-    setPhone = (e) => {
-
-    }
-
-    register = () => {
-
+    registerUser () {
+        axios({
+            method: 'post',
+            url: `http://192.168.0.107:3002/users/signup`,
+            data: {
+                username: this.state.username,
+                email: this.state.email,
+                phone: this.state.phone,
+                password: this.state.password,
+                image: 'hahaha'
+            }
+        })
+        .then((result) => {
+            alert(result.data.msg)
+            // console.log(result);
+            this.props.navigation.navigate('Login')
+        })
+        .catch((err) => {
+            // console.log(err.response);
+            alert(err.response.data.msg)
+        });
     }
 
     render () {
         return (
-            <View style={ Style.container }>
-                <Image
-                style={{ width: 200, height: 200, marginTop: 20, zIndex: 2 }} 
-                source={require('../images/man.png')} />
-                <View style={{ backgroundColor: 'white', width: 350, height: 200, marginTop: -100 }}>
-                    <View style={{ flexDirection: 'row', marginTop: 110, marginLeft: 68, marginBottom: 10 }}>
-                        <Image 
-                        source={require('../images/man-user.png')} />
-                        <Text style={ Style.userText }>wisnugautama</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <Image 
-                        source={require('../images/close-envelope.png')} />
-                        <Text style={ Style.userText }>wisnugautama@gmail.com</Text>
-                    </View>
-                </View>
-                <View style={{ backgroundColor: 'white', width: 350, height: 300, marginTop: 20, justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableOpacity style={Style.button}>
-                        <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Register Locker</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'brown', height: 620}}>
+                <Image 
+                    style={{ width: 80, height: 80, marginTop: 10, marginBottom: 10}}
+                    source={require('../images/lockers.png')} />
+                <Text style={{ fontWeight:'500', marginBottom: 40, color: 'white', fontSize: 30 }}>Facelocker</Text>
+                
+                <TextInput 
+                    style={ Style.input }
+                    placeholderTextColor="white"
+                    placeholder="Username" 
+                    onChangeText={(username) => this.setState({ username })} />
+
+                <TextInput 
+                    style={ Style.input }
+                    placeholderTextColor="white"
+                    placeholder="Email" 
+                    onChangeText={(email) => this.setState({ email })} />
+
+                <TextInput 
+                    style={ Style.input }
+                    placeholderTextColor="white"
+                    placeholder="Phone" 
+                    onChangeText={(phone) => this.setState({ phone })} />
+
+                <TextInput 
+                    style={ Style.input }
+                    placeholderTextColor="white"
+                    placeholder="Password" 
+                    onChangeText={(password) => this.setState({ password })} />
+
+                <TouchableOpacity 
+                    style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}
+                    onPress={this.registerUser}>
+                        <Text style={{ textAlign: 'center', paddingVertical: 12 }}>Submit</Text>
+                </TouchableOpacity>
+            </ScrollView>
         )
     }
 }
 
 const Style = StyleSheet.create({
-    container: {
-        backgroundColor: 'brown', 
-        height: 800, 
-        alignItems: 'center'
-    },
-
-    userText: {
-        marginLeft: 10, 
-        paddingVertical: 3,
-        fontWeight: '500'
-    },
-
-    button: {
-        borderWidth: 2,
-        backgroundColor: 'navy',
-        width: 250,
+    input: {
+        borderBottomWidth: 1, 
+        borderBottomColor: 'white',
+        width: 300, 
         height: 50,
-        borderColor: 'white',
-        borderRadius: 5
+        marginTop: 10,
+        color: 'white'
     }
 })
