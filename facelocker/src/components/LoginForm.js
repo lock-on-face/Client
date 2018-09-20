@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView, AsyncStorage } from 'react-native';
 import axios from 'axios';
 
 export default class LoginForm extends React.Component {
@@ -13,22 +13,25 @@ export default class LoginForm extends React.Component {
     }
 
     Login = () => {
-        // axios({
-        //     method: 'post',
-        //     url: `http://192.168.0.107:3002/users/signin`,
-        //     data: {
-        //         username: this.state.username,
-        //         password: this.state.password
-        //     }
-        // })
-        // .then((result) => {
-        //     this.props.navigation.navigate('Home')
-        //     console.log(result);
-        // })
-        // .catch((err) => {
-        //     console.log(err.message);
-        // });
-        this.props.navigation.navigate('Home')
+        axios({
+            method: 'post',
+            url: `http://192.168.0.107:3002/users/signin`,
+            data: {
+                username: this.state.username,
+                password: this.state.password
+            }
+        })
+        .then((result) => {
+            console.log(result.data.id);
+            AsyncStorage.setItem('token', result.data.token)
+            alert('login sukses')
+            this.props.navigation.navigate('Home')
+        })
+        .catch((err) => {
+            alert('login gagal')
+            console.log(err.message);
+        });
+        // this.props.navigation.navigate('Home')
     }
 
     render () {
@@ -41,11 +44,13 @@ export default class LoginForm extends React.Component {
                 
                 <TextInput 
                 style={ Style.input }
+                onChangeText={(username) => this.setState({ username })}
                 placeholderTextColor="white"
                 placeholder="Username" />
 
                 <TextInput 
                 style={ Style.input }
+                onChangeText={(password) => this.setState({ password })}
                 placeholderTextColor="white"
                 placeholder="Password" />
 
