@@ -29,26 +29,27 @@ export default class RegisterForm extends React.Component {
     }
 
     registerUser () {
-        axios({
-            method: 'post',
-            url: `http://192.168.0.107:3002/users/signup`,
-            data: {
-                username: this.state.username,
-                email: this.state.email,
-                phone: this.state.phone,
-                password: this.state.password,
-                image: this.state.avatarSource.uri
-            }
-        })
-        .then((result) => {
-            alert(result.data.msg)
-            // console.log(result);
-            this.props.navigation.navigate('Login')
-        })
-        .catch((err) => {
-            // console.log(err.response);
-            alert(err.response.data.msg)
-        });
+        // axios({
+        //     method: 'post',
+        //     url: `http://192.168.1.101:3002/users/signup`,
+        //     data: {
+        //         username: this.state.username,
+        //         email: this.state.email,
+        //         phone: this.state.phone,
+        //         password: this.state.password,
+        //         image: this.state.avatarSource.uri
+        //     }
+        // })
+        // .then((result) => {
+        //     alert(result.data.msg)
+        //     // console.log(result);
+        //     this.props.navigation.navigate('Welcome')
+        // })
+        // .catch((err) => {
+        //     // console.log(err.response);
+        //     alert(err.response.data.msg)
+        // });
+        this.props.navigation.navigate('Login')
     }
 
     useCamera = () => {
@@ -79,11 +80,11 @@ export default class RegisterForm extends React.Component {
 
     render () {
         return (
-            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'brown', height: 620}}>
+            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'orange', height: 620}}>
                 <Image 
                     style={{ width: 80, height: 80, marginTop: 10, marginBottom: 10}}
-                    source={require('../images/lockers.png')} />
-                <Text style={{ fontWeight:'500', marginBottom: 40, color: 'white', fontSize: 30 }}>Facelocker</Text>
+                    source={require('../images/123.png')} />
+                <Text style={{ fontWeight:'500', marginBottom: 40, color: 'white', fontSize: 30 }}>Register Form</Text>
                 
                 <TextInput 
                     style={ Style.input }
@@ -109,9 +110,11 @@ export default class RegisterForm extends React.Component {
                     placeholder="Password" 
                     onChangeText={(password) => this.setState({ password })} />
 
-                <Button 
-                title="Choose Avatar"
-                onPress={() => this.useCamera()} />
+                <View style={{ marginTop: 15, marginLeft: -160 }}>
+                    <Button 
+                    title="Choose Avatar"
+                    onPress={() => this.useCamera()} />
+                </View>
 
                 <TouchableOpacity 
                     style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}

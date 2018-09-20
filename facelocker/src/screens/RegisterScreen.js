@@ -5,7 +5,7 @@ import RegisterForm from '../components/RegisterForm';
 export default class RegisterScreen extends React.Component {
     render () {
         return (
-            <RegisterForm />
+            <RegisterForm navigation={ this.props.navigation }/>
         )
     }
 }

@@ -13,17 +13,19 @@ export default class LoginForm extends React.Component {
     }
 
     Login = () => {
+        console.log('tes');
         axios({
             method: 'post',
-            url: `http://192.168.0.107:3002/users/signin`,
+            url: `http://192.168.0.10:3002/users/signin`,
             data: {
                 username: this.state.username,
                 password: this.state.password
             }
         })
         .then((result) => {
-            console.log(result.data.id);
+            console.log(result.data);
             AsyncStorage.setItem('token', result.data.token)
+            AsyncStorage.setItem('id', result.data.id)
             alert('login sukses')
             this.props.navigation.navigate('Home')
         })
@@ -36,11 +38,11 @@ export default class LoginForm extends React.Component {
 
     render () {
         return (
-            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'brown', height: 603.5}}>
+            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'orange', height: 603.5}}>
                 <Image 
                 style={{ width: 80, height: 80, marginTop: 10, marginBottom: 10}}
-                source={require('../images/lockers.png')} />
-                <Text style={{ fontWeight:'500', marginBottom: 40, color: 'white', fontSize: 30 }}>Facelocker</Text>
+                source={require('../images/123.png')} />
+                <Text style={{ fontWeight:'500', marginBottom: 40, color: 'white', fontSize: 30 }}>Login Form</Text>
                 
                 <TextInput 
                 style={ Style.input }
