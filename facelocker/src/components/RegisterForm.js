@@ -1,6 +1,19 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
 import axios from 'axios';
+var ImagePicker = require('react-native-image-picker');
+
+// More info on all the options is below in the README...just some common use cases shown here
+var options = {
+  title: 'Select Avatar',
+  customButtons: [
+    {name: 'fb', title: 'Choose Photo from Facebook'},
+  ],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
 
 export default class RegisterForm extends React.Component {
     constructor() {
@@ -9,7 +22,8 @@ export default class RegisterForm extends React.Component {
             username: '',
             email: '',
             password: '',
-            phone: ''
+            phone: '',
+            avatarSource: null
         }
         this.registerUser = this.registerUser.bind(this)
     }
@@ -23,7 +37,7 @@ export default class RegisterForm extends React.Component {
                 email: this.state.email,
                 phone: this.state.phone,
                 password: this.state.password,
-                image: 'hahaha'
+                image: this.state.avatarSource.uri
             }
         })
         .then((result) => {
@@ -35,6 +49,32 @@ export default class RegisterForm extends React.Component {
             // console.log(err.response);
             alert(err.response.data.msg)
         });
+    }
+
+    useCamera = () => {
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+          
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            }
+            else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            }
+            else if (response.customButton) {
+              console.log('User tapped custom button: ', response.customButton);
+            }
+            else {
+              let source = { uri: response.uri };
+          
+              // You can also display the image using data:
+              // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+          
+              this.setState({
+                avatarSource: source
+              });
+            }
+          });
     }
 
     render () {
@@ -68,6 +108,10 @@ export default class RegisterForm extends React.Component {
                     placeholderTextColor="white"
                     placeholder="Password" 
                     onChangeText={(password) => this.setState({ password })} />
+
+                <Button 
+                title="Choose Avatar"
+                onPress={() => this.useCamera()} />
 
                 <TouchableOpacity 
                     style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}

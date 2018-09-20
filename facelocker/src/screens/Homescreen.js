@@ -11,6 +11,7 @@ export default class HomeScreen extends React.Component {
             userLogin: '',
             userEmail: '',
             userImage: '',
+            avatarSource: null
         }
     }
 
