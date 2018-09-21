@@ -12,7 +12,8 @@ export default class HomeScreen extends React.Component {
             userEmail: '',
             userImage: '',
             avatarSource: null,
-            userLocker: ''
+            userLocker: '',
+            isLocked: '0'
         }
     }
 
@@ -77,6 +78,36 @@ export default class HomeScreen extends React.Component {
             });
     }
 
+    lockSystem = () => {
+        if(this.state.isLocked === '0') {
+            axios.post('http://35.187.226.154/lockSys', {
+                isLocked: '1'
+            })
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    isLocked: '1'
+                })
+            })
+            .catch(err => {
+                console.log(err.response);
+            })
+        } else if(this.state.isLocked === '1') {
+            axios.post('http://35.187.226.154/lockSys', {
+                isLocked: '0'
+            })
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    isLocked: '0'
+                })
+            })
+            .catch(err => {
+                console.log(err.response);
+            })
+        }
+    }
+
     render () {
         return (
             <View style={ Style.container }>
@@ -102,9 +133,26 @@ export default class HomeScreen extends React.Component {
                 <View style={{ backgroundColor: 'white', width: 350, height: 300, marginTop: 20, alignItems: 'center' }}>
                 <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 30 }}>My Locker</Text>
                     {
-                        !this.state.locker ? (<TouchableOpacity onPress={() => this.props.navigation.navigate('Locker')} style={Style.button}>
-                            <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Register Locker</Text>
-                        </TouchableOpacity>) : (
+                        !this.state.locker ? (
+                        <React.Fragment>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Locker')} style={Style.button}>
+                                <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Register Locker</Text>
+                            </TouchableOpacity>
+                            {
+                                this.state.isLocked == '0' ? (
+                                    <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center'}} onPress={this.lockSystem}>
+                                        <Image source={{uri: 'https://png.icons8.com/lock/win8/1600'}} style={{height: 50, width: 50}}/>
+                                        <Text style={{ paddingLeft: 10, textAlign: 'center', paddingVertical: 12, color: 'black' }}>Unlock</Text>
+                                    </TouchableOpacity>
+                                ) : (
+                                    <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center'}} onPress={this.lockSystem}>
+                                        <Image source={{uri: 'https://png.icons8.com/unlock/win8/1600'}} style={{height: 50, width: 50}}/>
+                                        <Text style={{ paddingLeft: 10, textAlign: 'center', paddingVertical: 12, color: 'black' }}>Lock</Text>
+                                    </TouchableOpacity>
+                                )
+                            }
+                        </React.Fragment>
+                        ) : (
                         <View>
                             <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 15 }}>Locker : { this.state.userLocker }</Text>
                             <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 100 }}>Items : </Text>
