@@ -102,7 +102,7 @@ export default class HomeScreen extends React.Component {
                 <View style={{ backgroundColor: 'white', width: 350, height: 300, marginTop: 20, alignItems: 'center' }}>
                 <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 30 }}>My Locker</Text>
                     {
-                        !this.state.locker ? (<TouchableOpacity style={Style.button}>
+                        !this.state.locker ? (<TouchableOpacity onPress={() => this.props.navigation.navigate('Locker')} style={Style.button}>
                             <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Register Locker</Text>
                         </TouchableOpacity>) : (
                         <View>

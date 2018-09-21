@@ -15,6 +15,7 @@ import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/Homescreen';
 import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 import AdminScreen from './src/screens/AdminScreen';
+import LockerScreen from './src/screens/LockerScreen';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -51,6 +52,12 @@ const WelcomeStackNavigator = createStackNavigator({
 const HomeStackNavigator = createStackNavigator({
     Home: {
       screen: HomeScreen,
+      navigationOptions: () => ({
+        header: null
+      })
+    },
+    Locker: {
+      screen: LockerScreen,
       navigationOptions: () => ({
         header: null
       })
