@@ -48,7 +48,7 @@ export default class LoginForm extends React.Component {
                 style={ Style.input }
                 onChangeText={(username) => this.setState({ username })}
                 placeholderTextColor="white"
-                placeholder="Username" />
+                placeholder="Username / Email" />
 
                 <TextInput 
                 style={ Style.input }
@@ -74,6 +74,7 @@ const Style = StyleSheet.create({
         width: 300, 
         height: 50,
         marginTop: 10,
-        color: 'white'
+        color: 'white',
+        fontSize: 18
     }
 })

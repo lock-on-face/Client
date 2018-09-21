@@ -6,9 +6,9 @@ var ImagePicker = require('react-native-image-picker');
 // More info on all the options is below in the README...just some common use cases shown here
 var options = {
   title: 'Select Avatar',
-  customButtons: [
-    {name: 'fb', title: 'Choose Photo from Facebook'},
-  ],
+//   customButtons: [
+//     {name: 'fb', title: 'Choose Photo from Facebook'},
+//   ],
   storageOptions: {
     skipBackup: true,
     path: 'images'
@@ -133,6 +133,7 @@ const Style = StyleSheet.create({
         width: 300, 
         height: 50,
         marginTop: 10,
-        color: 'white'
+        color: 'white',
+        fontSize: 18
     }
 })
