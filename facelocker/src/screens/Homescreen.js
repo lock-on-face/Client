@@ -11,22 +11,23 @@ export default class HomeScreen extends React.Component {
             userLogin: '',
             userEmail: '',
             userImage: '',
+            avatarSource: null
         }
     }
 
     componentDidMount() {
-        this.cekToken()
+        
+        this.getMe()
     }
 
     cekToken = async () => {
         const token = await AsyncStorage.getItem('token')
-        console.log('token inh',token);
         this.setState({
             token: token
         })
         axios({
             method: 'get',
-            url: `http://192.168.0.107:3002/locker/self`,
+            url: `http://192.168.0.10:3002/locker/self`,
             headers: {
                 token: token
             }
@@ -39,6 +40,30 @@ export default class HomeScreen extends React.Component {
                     userEmail: result.data.data[0].owner.email,
                     userImage: result.data.data[0].owner.image
                 })
+            })
+            .catch((err) => {
+                
+            });
+    }
+
+    getMe = async () => {
+        console.log('jalan');
+        const id = await AsyncStorage.getItem('id')
+        axios({
+            method: 'get',
+            url: `http://192.168.0.10:3002/users`
+        })
+            .then((result) => {
+                this.cekToken()
+                console.log('ahahhha', result.data.data);
+                for (let i = 0; i < result.data.data.length; i++) {
+                    if (result.data.data[i]._id == id) {
+                        this.setState({
+                            userLogin: result.data.data[i].username,
+                            userEmail: result.data.data[i].email,
+                        })
+                    }
+                }
             })
             .catch((err) => {
                 
@@ -63,11 +88,20 @@ export default class HomeScreen extends React.Component {
                         <Text style={ Style.userText }>{ this.state.userEmail }</Text>
                     </View>
                 </View>
-                <View style={{ backgroundColor: 'white', width: 350, height: 300, marginTop: 20, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ backgroundColor: 'white', width: 350, height: 300, marginTop: 20, alignItems: 'center' }}>
+                <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 30 }}>My Locker</Text>
                     {
                         !this.state.locker ? (<TouchableOpacity style={Style.button}>
                             <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Register Locker</Text>
-                        </TouchableOpacity>) : (<Text>HEHE</Text>)
+                        </TouchableOpacity>) : (
+                        <View>
+                            <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 15 }}>Locker : </Text>
+                            <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 120 }}>Items : </Text>
+                            <TouchableOpacity style={Style.button}>
+                                <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Lock Locker</Text>
+                            </TouchableOpacity>
+                        </View>
+                        )
                     }
                 </View>
             </View>
@@ -77,7 +111,7 @@ export default class HomeScreen extends React.Component {
 
 const Style = StyleSheet.create({
     container: {
-        backgroundColor: 'brown', 
+        backgroundColor: 'orange', 
         height: 800, 
         alignItems: 'center'
     },
