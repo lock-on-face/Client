@@ -23,11 +23,24 @@ export default class LoginForm extends React.Component {
             }
         })
         .then((result) => {
-            console.log(result.data);
+            let cekAdmin = ''
+
+            if (result.data.isAdmin) {
+                cekAdmin = 'admin'
+            }else {
+                cekAdmin = 'bukan'
+            }
+
             AsyncStorage.setItem('token', result.data.token)
             AsyncStorage.setItem('id', result.data.id)
+            AsyncStorage.setItem('admin', cekAdmin)
             alert('login sukses')
-            this.props.navigation.navigate('Home')
+            
+            if (result.data.isAdmin) {
+                this.props.navigation.navigate('Admin')
+            } else {
+                this.props.navigation.navigate('Home')
+            }
         })
         .catch((err) => {
             alert('login gagal')

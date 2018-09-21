@@ -9,7 +9,13 @@ export default class AuthLoadingScreen extends React.Component {
 
     loadApp = async () => {
         const token = await AsyncStorage.getItem('token')
-        this.props.navigation.navigate(token ? 'Home' : 'Auth')
+        const admin = await AsyncStorage.getItem('admin')
+
+        if (admin == 'admin') {
+            this.props.navigation.navigate(token ? 'Admin' : 'Auth')
+        } else {
+            this.props.navigation.navigate(token ? 'Home' : 'Auth')
+        }
     }
 
     render () {
