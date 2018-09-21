@@ -16,18 +16,31 @@ export default class LoginForm extends React.Component {
         console.log('tes');
         axios({
             method: 'post',
-            url: `http://192.168.0.10:3002/users/signin`,
+            url: `http://192.168.0.107:3002/users/signin`,
             data: {
                 username: this.state.username,
                 password: this.state.password
             }
         })
         .then((result) => {
-            console.log(result.data);
+            let cekAdmin = ''
+
+            if (result.data.isAdmin) {
+                cekAdmin = 'admin'
+            }else {
+                cekAdmin = 'bukan'
+            }
+
             AsyncStorage.setItem('token', result.data.token)
             AsyncStorage.setItem('id', result.data.id)
+            AsyncStorage.setItem('admin', cekAdmin)
             alert('login sukses')
-            this.props.navigation.navigate('Home')
+            
+            if (result.data.isAdmin) {
+                this.props.navigation.navigate('Admin')
+            } else {
+                this.props.navigation.navigate('Home')
+            }
         })
         .catch((err) => {
             alert('login gagal')
@@ -48,10 +61,11 @@ export default class LoginForm extends React.Component {
                 style={ Style.input }
                 onChangeText={(username) => this.setState({ username })}
                 placeholderTextColor="white"
-                placeholder="Username" />
+                placeholder="Username / Email" />
 
                 <TextInput 
                 style={ Style.input }
+                secureTextEntry={true}
                 onChangeText={(password) => this.setState({ password })}
                 placeholderTextColor="white"
                 placeholder="Password" />
@@ -73,6 +87,7 @@ const Style = StyleSheet.create({
         width: 300, 
         height: 50,
         marginTop: 10,
-        color: 'white'
+        color: 'white',
+        fontSize: 18
     }
 })
