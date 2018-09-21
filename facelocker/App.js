@@ -54,7 +54,7 @@ const HomeStackNavigator = createStackNavigator({
       navigationOptions: () => ({
         header: null
       })
-    }
+    },
 })
 
 const SwitchScreen = createSwitchNavigator({
