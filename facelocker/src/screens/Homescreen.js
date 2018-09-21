@@ -11,12 +11,18 @@ export default class HomeScreen extends React.Component {
             userLogin: '',
             userEmail: '',
             userImage: '',
-            avatarSource: null
+            avatarSource: null,
+            userLocker: ''
         }
     }
 
+    logout = async () => {
+        await AsyncStorage.removeItem('token')
+        this.props.navigation.navigate('Auth')
+        alert('Logout Success')
+    }
+
     componentDidMount() {
-        
         this.getMe()
     }
 
@@ -27,7 +33,7 @@ export default class HomeScreen extends React.Component {
         })
         axios({
             method: 'get',
-            url: `http://192.168.0.10:3002/locker/self`,
+            url: `http://192.168.0.107:3002/locker/self`,
             headers: {
                 token: token
             }
@@ -38,7 +44,8 @@ export default class HomeScreen extends React.Component {
                     locker: result.data.data[0],
                     userLogin: result.data.data[0].owner.username,
                     userEmail: result.data.data[0].owner.email,
-                    userImage: result.data.data[0].owner.image
+                    userImage: result.data.data[0].owner.image,
+                    userLocker: result.data.data[0].serialNumber
                 })
             })
             .catch((err) => {
@@ -51,7 +58,7 @@ export default class HomeScreen extends React.Component {
         const id = await AsyncStorage.getItem('id')
         axios({
             method: 'get',
-            url: `http://192.168.0.10:3002/users`
+            url: `http://192.168.0.107:3002/users`
         })
             .then((result) => {
                 this.cekToken()
@@ -77,7 +84,11 @@ export default class HomeScreen extends React.Component {
                 style={{ width: 200, height: 200, marginTop: 20, zIndex: 2 }} 
                 source={require('../images/man.png')} />
                 <View style={{ backgroundColor: 'white', width: 350, height: 200, marginTop: -100 }}>
-                    <View style={{ flexDirection: 'row', marginTop: 110, marginLeft: 68, marginBottom: 10 }}>
+                <TouchableOpacity style={{ alignItems: 'flex-end', paddingTop: 7 }} onPress={this.logout}>
+                    <Image 
+                    source={require('../images/exit.png')} />
+                </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', marginTop: 80, marginLeft: 68, marginBottom: 10 }}>
                         <Image 
                         source={require('../images/man-user.png')} />
                         <Text style={ Style.userText }>{this.state.userLogin}</Text>
@@ -95,8 +106,8 @@ export default class HomeScreen extends React.Component {
                             <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Register Locker</Text>
                         </TouchableOpacity>) : (
                         <View>
-                            <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 15 }}>Locker : </Text>
-                            <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 120 }}>Items : </Text>
+                            <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 15 }}>Locker : { this.state.userLocker }</Text>
+                            <Text style={{ fontWeight: '500', fontSize: 20, marginBottom: 100 }}>Items : </Text>
                             <TouchableOpacity style={Style.button}>
                                 <Text style={{ textAlign: 'center', paddingVertical: 12, color: 'white' }}>Lock Locker</Text>
                             </TouchableOpacity>

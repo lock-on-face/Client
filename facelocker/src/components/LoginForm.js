@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
         console.log('tes');
         axios({
             method: 'post',
-            url: `http://192.168.0.10:3002/users/signin`,
+            url: `http://192.168.0.107:3002/users/signin`,
             data: {
                 username: this.state.username,
                 password: this.state.password
@@ -52,6 +52,7 @@ export default class LoginForm extends React.Component {
 
                 <TextInput 
                 style={ Style.input }
+                secureTextEntry={true}
                 onChangeText={(password) => this.setState({ password })}
                 placeholderTextColor="white"
                 placeholder="Password" />

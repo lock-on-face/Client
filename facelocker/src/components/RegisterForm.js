@@ -29,27 +29,26 @@ export default class RegisterForm extends React.Component {
     }
 
     registerUser () {
-        // axios({
-        //     method: 'post',
-        //     url: `http://192.168.1.101:3002/users/signup`,
-        //     data: {
-        //         username: this.state.username,
-        //         email: this.state.email,
-        //         phone: this.state.phone,
-        //         password: this.state.password,
-        //         image: this.state.avatarSource.uri
-        //     }
-        // })
-        // .then((result) => {
-        //     alert(result.data.msg)
-        //     // console.log(result);
-        //     this.props.navigation.navigate('Welcome')
-        // })
-        // .catch((err) => {
-        //     // console.log(err.response);
-        //     alert(err.response.data.msg)
-        // });
-        this.props.navigation.navigate('Login')
+        axios({
+            method: 'post',
+            url: `http://192.168.0.107:3002/users/signup`,
+            data: {
+                username: this.state.username,
+                email: this.state.email,
+                phone: this.state.phone,
+                password: this.state.password,
+                image: this.state.avatarSource.uri
+            }
+        })
+        .then((result) => {
+            alert(result.data.msg)
+            // console.log(result);
+            this.props.navigation.navigate('Login')
+        })
+        .catch((err) => {
+            // console.log(err.response);
+            alert(err.response.data.msg)
+        });
     }
 
     useCamera = () => {
@@ -106,6 +105,7 @@ export default class RegisterForm extends React.Component {
 
                 <TextInput 
                     style={ Style.input }
+                    secureTextEntry={true}
                     placeholderTextColor="white"
                     placeholder="Password" 
                     onChangeText={(password) => this.setState({ password })} />
