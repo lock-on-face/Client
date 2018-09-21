@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,StyleSheet,ScrollView, Button, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View,Text,StyleSheet,ScrollView, Button, TouchableOpacity, AsyncStorage, Image } from 'react-native';
 import axios from 'axios';
 
 export default class AdminScreen extends React.Component {
@@ -40,20 +40,23 @@ export default class AdminScreen extends React.Component {
     render () {
         return (
             <View style={ Style.container }>
-                <Text>Welcome Admin</Text>
+                <Image 
+                    style={{ width: 120, height: 120, marginTop: 20 }}
+                    source={require('../images/man.png')} />
+                <Text style={{ fontWeight: '500', fontSize: 20 }}>Welcome Admin</Text>
                 <Button 
-                title="lokot"
+                title="Logout"
                 onPress={this.logout} />
                 <View style={{ alignItems: 'center' }}>
-                    <Text>Locker List</Text>
+                    <Text style={{ fontWeight: '500', fontSize: 20 }}>Locker List</Text>
                     {
                         this.state.lockerList.map((list,index) => {
                             return (
-                                <View key={index} style={{ width: 370, height: 50, backgroundColor: 'white', marginBottom: 20, flexDirection: 'row' }}>
+                                <View key={index} style={{ width: 370, height: 50, backgroundColor: 'white', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
                                     <Text style={ Style.content }>Locker : { list.serialNumber }</Text>
                                     <Text style={ Style.content }>Owner : { list.owner.username }</Text>
-                                    <TouchableOpacity>
-                                        <Text style={ Style.content }>Lock</Text>
+                                    <TouchableOpacity style={{ width: 85, height: 30, marginTop: 10, alignItems: 'center', backgroundColor: 'navy' }}>
+                                        <Text style={{ fontWeight: '500', paddingTop: 3, color: 'white' }}>Lock</Text>
                                     </TouchableOpacity>
                                 </View>
                             )
@@ -88,7 +91,8 @@ const Style = StyleSheet.create({
     },
 
     content: {
-        paddingHorizontal: 20,
-        paddingVertical: 10
+        // paddingHorizontal: 25,
+        paddingVertical: 15,
+        fontWeight: '500'
     }
 })
