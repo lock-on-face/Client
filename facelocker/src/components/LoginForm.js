@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
         console.log('tes');
         axios({
             method: 'post',
-            url: `http://192.168.0.107:3002/users/signin`,
+            url: `http://192.168.43.127:3002/users/signin`,
             data: {
                 username: this.state.username,
                 password: this.state.password
@@ -51,11 +51,11 @@ export default class LoginForm extends React.Component {
 
     render () {
         return (
-            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'orange', height: 603.5}}>
+            <ScrollView contentContainerStyle={{flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#4189f4'}}>
                 <Image 
-                style={{ width: 80, height: 80, marginTop: 10, marginBottom: 10}}
-                source={require('../images/123.png')} />
-                <Text style={{ fontWeight:'500', marginBottom: 40, color: 'white', fontSize: 30 }}>Login Form</Text>
+                style={{marginTop: -50, marginBottom: 10}}
+                source={require('../images/hantu2.png')} />
+                {/* <Text style={{ fontWeight:'500', marginBottom: 40, color: '#e5d80e', fontSize: 30 }}>Login Form</Text> */}
                 
                 <TextInput 
                 style={ Style.input }
@@ -71,7 +71,7 @@ export default class LoginForm extends React.Component {
                 placeholder="Password" />
 
                 <TouchableOpacity 
-                style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}
+                style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 50, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}
                 onPress={() => this.Login()}>
                     <Text style={{ textAlign: 'center', paddingVertical: 12 }}>Submit</Text>
                 </TouchableOpacity>

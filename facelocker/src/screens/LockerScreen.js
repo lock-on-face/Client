@@ -18,7 +18,7 @@ export default class LockerScreen extends React.Component {
   getAllLocker = () => {
     axios({
       method: 'get',
-      url: `http://192.168.0.107:3002/locker`
+      url: `http://192.168.43.127:3002/locker`
     })
       .then((result) => {
         let lockers = result.data.data
@@ -45,7 +45,7 @@ export default class LockerScreen extends React.Component {
     const token = await AsyncStorage.getItem('token')
     axios({
       method: 'post',
-      url: `http://192.168.0.107:3002/locker`,
+      url: `http://192.168.43.127:3002/locker`,
       headers: {
         token: token
       },
@@ -66,33 +66,28 @@ export default class LockerScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: 'orange', paddingLeft: 5, paddingRight: 5 }}>
+      <ScrollView style={{ flex: 1, backgroundColor: '#4189f4', paddingLeft: 5, paddingRight: 5 }}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-          <Text style={{ color: "white", fontSize: 50 }}>Register Locker</Text>
-          <Image source={{ uri: 'https://ptetutorials.com/images/user-profile.png', height: 200, width: 200 }} />
+          <Image 
+          source={require('../images/123.png')} 
+          style={{ width: 100, height: 80, marginTop: 50 }} />
+          <Text style={{ marginTop: 30, color: "white", fontSize: 25, fontWeight: '500', fontFamily: 'sans-serif-medium' }}>Register Locker</Text>
         </View>
-        <View style={{ flex: 2, marginTop: 50 }}>
-          <TextInput placeholder="Locker Number" placeholderTextColor="white" style={{ borderBottomWidth: 1, borderBottomColor: "white", color: "white" }} />
+        <View style={{ flex: 2, marginTop: 50, alignItems: 'center' }}>
+        <Text style={{ marginTop: 30, color: "white", fontSize: 20, fontWeight: '200', fontFamily: 'sans-serif-medium' }}>Select Locker</Text>
+        <Picker
+            selectedValue={this.state.lockerNumber}
+            style={{ height: 50, width: 100, color: 'white' }}
+            onValueChange={(itemValue, itemIndex) => this.setState({ lockerNumber: itemValue })}>
+          <Picker.Item label="1" value="1" />
+          <Picker.Item label="2" value="2" />
+          <Picker.Item label="3" value="3" />
+        </Picker>
           <View style={{ justifyContent: "center", alignItems: "center", marginTop: 30 }}>
-            <TouchableOpacity onPress={() => this.rentLocker()} style={{ height: 50, width: 250, backgroundColor: "navy", justifyContent: "center", alignItems: "center", borderRadius: 10 }}>
+            <TouchableOpacity onPress={() => this.rentLocker()} style={{ height: 50, width: 250, backgroundColor: "orange", justifyContent: "center", alignItems: "center", borderRadius: 50 }}>
               <Text style={{ color: "white", fontSize: 20 }}>Submit</Text>
             </TouchableOpacity>
           </View>
-
-          <Picker
-            selectedValue={this.state.lockerNumber}
-            style={{ height: 50, width: 100 }}
-            onValueChange={(itemValue, itemIndex) => this.setState({ lockerNumber: itemValue })}>
-            {
-              this.state.lockerList.map((list,index) => {
-                 return <Picker.Item label={list.serialNumber} value={list.serialNumber} />
-              })
-            }
-          <Picker.Item label="5" value="5" />
-          <Picker.Item label="6" value="6" />
-          <Picker.Item label="7" value="7" />
-          <Picker.Item label="8" value="8" />
-          </Picker>
         </View>
       </ScrollView>
     )

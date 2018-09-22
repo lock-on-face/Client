@@ -31,7 +31,7 @@ export default class RegisterForm extends React.Component {
     registerUser () {
         axios({
             method: 'post',
-            url: `http://192.168.0.107:3002/users/signup`,
+            url: `http://192.168.43.127:3002/users/signup`,
             data: {
                 username: this.state.username,
                 email: this.state.email,
@@ -46,7 +46,7 @@ export default class RegisterForm extends React.Component {
             this.props.navigation.navigate('Login')
         })
         .catch((err) => {
-            // console.log(err.response);
+            console.log(err.response);
             alert(err.response.data.msg)
         });
     }
@@ -79,11 +79,10 @@ export default class RegisterForm extends React.Component {
 
     render () {
         return (
-            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'orange', height: 620}}>
+            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#4189f4', flex: 1}}>
                 <Image 
-                    style={{ width: 80, height: 80, marginTop: 10, marginBottom: 10}}
-                    source={require('../images/123.png')} />
-                <Text style={{ fontWeight:'500', marginBottom: 40, color: 'white', fontSize: 30 }}>Register Form</Text>
+                    style={{ marginTop: 1, marginBottom: 1}}
+                    source={require('../images/hantu2.png')} />
                 
                 <TextInput 
                     style={ Style.input }
@@ -117,7 +116,7 @@ export default class RegisterForm extends React.Component {
                 </View>
 
                 <TouchableOpacity 
-                    style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 3, marginTop: 40, borderColor: 'yellow', backgroundColor: 'white' }}
+                    style={{ borderWidth: 1, width: 300, height: 50, borderRadius: 50, marginTop: 40, borderColor: '#4189f4', backgroundColor: 'white' }}
                     onPress={this.registerUser}>
                         <Text style={{ textAlign: 'center', paddingVertical: 12 }}>Submit</Text>
                 </TouchableOpacity>
