@@ -41,11 +41,17 @@ const WelcomeStackNavigator = createStackNavigator({
     },
 
     Register: {
-      screen: RegisterScreen
+      screen: RegisterScreen,
+      navigationOptions: () => ({
+        header: null
+      })
     },
 
     Login: {
-      screen: LoginScreen
+      screen: LoginScreen,
+      navigationOptions: () => ({
+        header: null
+      })
     }
 })
 
@@ -56,19 +62,20 @@ const HomeStackNavigator = createStackNavigator({
         header: null
       })
     },
-    Locker: {
-      screen: LockerScreen,
-      navigationOptions: () => ({
-        header: null
-      })
-    }
+    
 })
 
 const SwitchScreen = createSwitchNavigator({
     Loading: AuthLoadingScreen,
     Auth: WelcomeStackNavigator,
     Home: HomeStackNavigator,
-    Admin: AdminScreen
+    Admin: AdminScreen,
+    Locker: {
+      screen: LockerScreen,
+      // navigationOptions: () => ({
+      //   header: null
+      // })
+    }
 })
 
 const styles = StyleSheet.create({
