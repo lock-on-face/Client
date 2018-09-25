@@ -18,7 +18,7 @@ export default class LockerScreen extends React.Component {
   getAllLocker = () => {
     axios({
       method: 'get',
-      url: `http://192.168.43.127:3002/locker`
+      url: `http://192.168.43.127:3000/locker`
     })
       .then((result) => {
         let lockers = result.data.data
@@ -45,7 +45,7 @@ export default class LockerScreen extends React.Component {
     const token = await AsyncStorage.getItem('token')
     axios({
       method: 'post',
-      url: `http://192.168.43.127:3002/locker`,
+      url: `http://192.168.0.107:3000/locker`,
       headers: {
         token: token
       },

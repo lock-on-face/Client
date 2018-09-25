@@ -12,7 +12,7 @@ export default class WelcomeScreen extends React.Component {
                     <Text style={{ textAlign: 'center',paddingVertical: 8 }}>REGISTER</Text>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={Style.button} onPress={() => this.props.navigation.navigate('Login')}>
+                <TouchableOpacity style={Style.button} onPress={() => this.props.navigation.navigate('Landing')}>
                     <Text style={{ textAlign:'center', paddingVertical: 8 }}>LOGIN</Text>
                 </TouchableOpacity>
             </View>
@@ -29,6 +29,7 @@ const Style = StyleSheet.create({
         marginBottom: 20,
         borderWidth: 2,
         borderColor: '#4189f4',
-        fontWeight: '500'
+        fontWeight: '500',
+        elevation: 5
     }
 })
