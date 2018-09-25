@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import axios from "axios"
 
 const styles = StyleSheet.create({
@@ -40,7 +39,7 @@ export default class LandingScreen extends React.Component {
     }
 
     componentDidMount =  () => {
-        axios.get("http://192.168.1.206:3000/locker")
+        axios.get("http://192.168.1.108:3000/locker")
         .then((result => {
             let lockerList = result.data.data
             let emptyLockers = lockerList.filter((locker) => {
@@ -108,25 +107,7 @@ export default class LandingScreen extends React.Component {
                     {"\n"}
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                    <TouchableOpacity
-                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
-                        onPress={() => this.props.navigation.navigate('Rent', { number: '1' })} >
-                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 1</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    {/* <AwesomeButtonRick type="primary">Rent A</AwesomeButtonRick> */}
                     { this.lockerList()}
-                    {/* <TouchableOpacity
-                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
-                        onPress={() => this.props.navigation.navigate('Rent', { number: '2' })} >
-                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 2</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
-                        number="2"
-                        onPress={() => this.props.navigation.navigate('Rent', { number: '3' })} >
-                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 3</Text>
-                    </TouchableOpacity> */}
                 </View>
             </View>
         )

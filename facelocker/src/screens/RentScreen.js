@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, Picker, TouchableOpacity, Button, TextInput, Modal, StyleSheet } from 'react-native';
 import { RNS3 } from 'react-native-aws3';
-import db from '../../firebase';
+// import db from '../../firebase';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/cartman';
 import axios from 'axios'
 
@@ -151,35 +151,35 @@ export default class RentScreen extends React.Component {
         });
     }
 
-    lockSystem = () => {
-        if (this.state.isLocked == '0') {
-            db.ref('users/').set({
-                isLocked: '1'
-            })
+    // lockSystem = () => {
+    //     if (this.state.isLocked == '0') {
+    //         db.ref('users/').set({
+    //             isLocked: '1'
+    //         })
     
-            this.setState({
-                isLocked: '1'
-            })
-        } else {
-            db.ref('users/').set({
-                isLocked: '0'
-            })
+    //         this.setState({
+    //             isLocked: '1'
+    //         })
+    //     } else {
+    //         db.ref('users/').set({
+    //             isLocked: '0'
+    //         })
     
-            this.setState({
-                isLocked: '0'
-            })
-        }
-    }
+    //         this.setState({
+    //             isLocked: '0'
+    //         })
+    //     }
+    // }
 
-    unlockSystem = () => {
-        db.ref('users/').set({
-            isLocked: '0'
-        })
+    // unlockSystem = () => {
+    //     db.ref('users/').set({
+    //         isLocked: '0'
+    //     })
 
-        this.setState({
-            isLocked: '1'
-        })
-    }
+    //     this.setState({
+    //         isLocked: '1'
+    //     })
+    // }
 
     render() {
         return (
@@ -196,7 +196,6 @@ export default class RentScreen extends React.Component {
                     <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
                         <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: 'black' }}>LOCKER { this.props.navigation.state.params.number }</Text>
                     </View>
-
                     <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
                         <AwesomeButtonRick 
                         type="primary"
@@ -207,10 +206,7 @@ export default class RentScreen extends React.Component {
                         title="Submit"
                          />
                     </View>
-
-                    <View style={{ elevation: 5, width:350, height: 160, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
-
-                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
+                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
                         <Text style={{ marginBottom: 6, alignItems: 'flex-start', fontWeight: '500', color: '#1f6691', fontSize: 15 }}>USER</Text>
                         {
                             this.state.listLocker.map((locker, index) => {
@@ -227,13 +223,12 @@ export default class RentScreen extends React.Component {
                             })
                         }
                     </View>
-
                     <View>
                         {
-                            this.state.isLocked == '0' ? (<TouchableOpacity style={{ bottom: 0 }} onPress={() => this.lockSystem()}>
+                            this.state.isLocked == '0' ? (<TouchableOpacity style={{ bottom: 0 }} onPress={() => alert("hehehe")}>
                                 <Image
                                     source={require('../images/lock.png')} />
-                            </TouchableOpacity>) : (<TouchableOpacity style={{ bottom: 0 }} onPress={() => this.lockSystem()}>
+                            </TouchableOpacity>) : (<TouchableOpacity style={{ bottom: 0 }} onPress={() => alert("hehehe")}>
                                 <Image
                                     source={require('../images/unlocked.png')} />
                             </TouchableOpacity>)
