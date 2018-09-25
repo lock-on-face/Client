@@ -34,7 +34,7 @@ export default class RegisterForm extends React.Component {
     registerUser () {
         axios({
             method: 'post',
-            url: `http://192.168.0.107:3000/users/signup`,
+            url: `http://35.240.133.234/users/signup`,
             data: {
                 username: this.state.username,
                 email: this.state.email,
