@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
         console.log('tes');
         axios({
             method: 'post',
-            url: `http://192.168.43.127:3002/users/signin`,
+            url: `http://192.168.0.107:3000/users/signin`,
             data: {
                 username: this.state.username,
                 password: this.state.password

@@ -35,7 +35,7 @@ export default class HomeScreen extends React.Component {
         })
         axios({
             method: 'get',
-            url: `http://192.168.43.127:3002/locker/self`,
+            url: `http://192.168.0.107:3000/locker/self`,
             headers: {
                 token: token
             }
@@ -49,6 +49,7 @@ export default class HomeScreen extends React.Component {
                     userImage: result.data.data[0].owner.image,
                     userLocker: result.data.data[0].serialNumber,
                     userPhone: result.data.data[0].owner.phone,
+                    userImage: result.data.data[0].owner.image
                 })
             })
             .catch((err) => {
@@ -61,7 +62,7 @@ export default class HomeScreen extends React.Component {
         const id = await AsyncStorage.getItem('id')
         axios({
             method: 'get',
-            url: `http://192.168.43.127:3002/users`
+            url: `http://192.168.0.107:3000/users`
         })
             .then((result) => {
                 this.cekToken()
@@ -72,6 +73,7 @@ export default class HomeScreen extends React.Component {
                             userLogin: result.data.data[i].username,
                             userEmail: result.data.data[i].email,
                             userPhone: result.data.data[i].phone,
+                            userImage: result.data.data[i].image
                         })
                     }
                 }
@@ -82,6 +84,7 @@ export default class HomeScreen extends React.Component {
     }
 
     lockSystem = () => {
+        console.log('jalan');
         if(this.state.isLocked === '0') {
             axios.post('http://35.187.226.154/lockSys', {
                 isLocked: '1'
@@ -115,17 +118,17 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={ Style.container }>
                 <View style={{ flexDirection: 'row', marginLeft: 320, paddingVertical: 5 }}>
-                    <Text style={{ paddingTop: 5, color: 'white', fontWeight: '500' }}>Logout</Text>
                     <TouchableOpacity onPress={this.logout}>
                         <Image 
                         source={require('../images/exit.png')} />
                     </TouchableOpacity>
+                    <Text style={{ paddingTop: 1, color: 'white', fontWeight: '500' }}>Logout</Text>
                 </View>
                 <Image
-                style={{ width: 200, height: 200, marginTop: 1, marginBottom: 30}} 
-                source={require('../images/man.png')} />
+                style={{ width: 200, height: 200, marginTop: 1, marginBottom: 30, borderRadius: 100}} 
+                source={{ uri: this.state.userImage }} />
 
-                <View style={{ width: 350, height: 185, backgroundColor: 'white',borderRadius: 5 }}>
+                <View style={{ width: 350, height: 185, backgroundColor: 'white' }}>
                     <Text style={{ fontWeight: '500', fontSize: 30, textAlign: 'center', fontFamily: 'sans-serif-medium' }}>Profile</Text>
                     <View style={{ flexDirection: 'row', marginTop: 15, marginLeft: 10 }}>
                         <Image 
@@ -144,7 +147,7 @@ export default class HomeScreen extends React.Component {
                     </View>
                 </View>
 
-                <View style={{ width: 350, height: 70, backgroundColor: 'white', marginTop: 20, borderRadius: 5, justifyContent: 'center' }}> 
+                <View style={{ width: 350, height: 70, backgroundColor: 'white', marginTop: 20, justifyContent: 'center' }}> 
                     <Text style={{ fontWeight: '500', fontSize: 15, marginLeft: 10, fontFamily: 'sans-serif-medium', marginBottom: 5 }}>Locker : { this.state.userLocker }</Text>
                     <Text style={{ fontWeight: '500', fontSize: 15, marginLeft: 10, fontFamily: 'sans-serif-medium' }}>Items   : </Text>
                 </View>
@@ -213,10 +216,10 @@ export default class HomeScreen extends React.Component {
 
 const Style = StyleSheet.create({
     container: {
-        backgroundColor: '#4189f4', 
-        height: 800, 
+        backgroundColor: '#4189f4',  
         alignItems: 'center',
-        
+        // flex: 1
+        height: 800
     },
 
     userText: {
