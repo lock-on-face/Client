@@ -11,11 +11,12 @@ export default class AuthLoadingScreen extends React.Component {
         const token = await AsyncStorage.getItem('token')
         const admin = await AsyncStorage.getItem('admin')
 
-        if (admin == 'admin') {
-            this.props.navigation.navigate(token ? 'Admin' : 'Auth')
-        } else {
-            this.props.navigation.navigate(token ? 'Home' : 'Auth')
-        }
+        // if (admin == 'admin') {
+        //     this.props.navigation.navigate(token ? 'Admin' : 'Auth')
+        // } else {
+        //     this.props.navigation.navigate(token ? 'Landing' : 'Auth')
+        // }
+        this.props.navigation.navigate('Welcome')
     }
 
     render () {

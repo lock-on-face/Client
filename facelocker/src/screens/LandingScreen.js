@@ -108,6 +108,12 @@ export default class LandingScreen extends React.Component {
                     {"\n"}
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                    <TouchableOpacity
+                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
+                        onPress={() => this.props.navigation.navigate('Rent', { number: '1' })} >
+                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 1</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                     {/* <AwesomeButtonRick type="primary">Rent A</AwesomeButtonRick> */}
                     { this.lockerList()}
                     {/* <TouchableOpacity

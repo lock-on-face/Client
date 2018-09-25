@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
         console.log('tes');
         axios({
             method: 'post',
-            url: `http://localhost:3000/users/signin`,
+            url: `http://192.168.0.107:3000/users/signin`,
             data: {
                 username: this.state.username,
                 password: this.state.password
@@ -39,7 +39,7 @@ export default class LoginForm extends React.Component {
             if (result.data.isAdmin) {
                 this.props.navigation.navigate('Admin')
             } else {
-                this.props.navigation.navigate('Home')
+                this.props.navigation.navigate('Landing')
             }
         })
         .catch((err) => {

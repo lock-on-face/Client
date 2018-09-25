@@ -12,7 +12,7 @@ export default class WelcomeScreen extends React.Component {
                     <Text style={{ textAlign: 'center',paddingVertical: 8 }}>REGISTER</Text>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style={Style.button} onPress={() => this.props.navigation.navigate('Landing')}>
+                <TouchableOpacity style={Style.button} onPress={() => this.props.navigation.navigate('Login')}>
                     <Text style={{ textAlign:'center', paddingVertical: 8 }}>LOGIN</Text>
                 </TouchableOpacity>
             </View>
