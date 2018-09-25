@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, Image, Picker, TouchableOpacity, Button, TextInput, Modal, StyleSheet } from 'react-native';
 import { RNS3 } from 'react-native-aws3';
-import axios from 'axios';
 import db from '../../firebase';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/cartman';
+import axios from 'axios'
 
 var ImagePicker = require('react-native-image-picker');
 var options = {
@@ -108,8 +109,6 @@ export default class RentScreen extends React.Component {
 
     useCamera = () => {
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-
             if (response.didCancel) {
                 console.log('User cancelled image picker');
             }
@@ -194,28 +193,22 @@ export default class RentScreen extends React.Component {
                     <Image
                         style={{ width: 150, height: 150 }}
                         source={require('../images/locker1234.png')} />
-
-                    <View style={{ width: 350, height: 60, borderBottomWidth: 2, borderBottomColor: '#1f6691', alignItems: 'center', marginBottom: 20 }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20, paddingVertical: 12, color: '#1f6691' }}>LOCKER {this.props.navigation.state.params.number}</Text>
+                    <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
+                        <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: 'black' }}>LOCKER { this.props.navigation.state.params.number }</Text>
                     </View>
 
-                    <View style={{ width: 350, height: 60, alignItems: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20, paddingVertical: 12, color: '#1f6691' }}>REGISTER USER</Text>
+                    <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
+                        <AwesomeButtonRick 
+                        type="primary"
+                        onPress={() => this.useCamera()}
+                        >Photo Pickup
+                        </AwesomeButtonRick>
+                        <Button 
+                        title="Submit"
+                         />
                     </View>
 
-                    <View style={{ elevation: 5, width: 350, height: 60, backgroundColor: 'white', alignItems: 'center', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-                        <TextInput placeholder="Add user"
-                            onChangeText={(name) => this.setState({ name })} />
-
-                        <Button
-                            title="Choose Photo"
-                            onPress={() => this.useCamera()} />
-
-                        <Button
-                            onPress={() => this.addNewUserToLocker()}
-                            title="Submit"
-                        />
-                    </View>
+                    <View style={{ elevation: 5, width:350, height: 160, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
 
                     <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
                         <Text style={{ marginBottom: 6, alignItems: 'flex-start', fontWeight: '500', color: '#1f6691', fontSize: 15 }}>USER</Text>
