@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Picker, TouchableOpacity, Button } from 'react-native';
+import { View, Text, Image, Picker, TouchableOpacity, Button, StyleSheet } from 'react-native';
 import { RNS3 } from 'react-native-aws3';
 var ImagePicker = require('react-native-image-picker');
 var options = {
@@ -12,6 +12,35 @@ var options = {
       path: 'images'
     }
   };
+
+const styles = StyleSheet.create({
+    user: {
+        width: 350,
+        height: 50
+    },
+    header: {
+        fontSize: 20,
+        color: "#3eb7d2",
+        fontWeight: "bold"
+    },
+    userContainer: {
+        width: 400,
+        height: 100,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    wordFont: {
+        fontSize: 15,
+        fontWeight: "bold",
+        color: "#1f6691"
+    },
+    lockerFont: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#1f6691",
+        textAlign: "center"
+    }
+})
 
 export default class RentScreen extends React.Component {
     constructor() {
@@ -69,9 +98,11 @@ export default class RentScreen extends React.Component {
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#4189f4' }}>
-                <View style={{ backgroundColor: '#4189f4', height: 60, elevation: 5 }}>
-
+            <View style={{ flex: 1, backgroundColor: '#3fd3c4' }}>
+                <View style={{ backgroundColor: '#9deae2', height: 60, elevation: 5 , justifyContent: "center", alignItems: "center"}}>
+                    <Text style={styles.header}>
+                        Rent Locker Number { this.props.navigation.getParam("number")}
+                    </Text>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Image

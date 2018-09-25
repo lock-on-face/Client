@@ -16,7 +16,7 @@ export default class LoginForm extends React.Component {
         console.log('tes');
         axios({
             method: 'post',
-            url: `http://192.168.0.107:3000/users/signin`,
+            url: `http://localhost:3000/users/signin`,
             data: {
                 username: this.state.username,
                 password: this.state.password
@@ -51,7 +51,7 @@ export default class LoginForm extends React.Component {
 
     render () {
         return (
-            <ScrollView contentContainerStyle={{flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#4189f4'}}>
+            <ScrollView contentContainerStyle={{flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#3fd3c4'}}>
                 <Image 
                 style={{marginTop: -50, marginBottom: 10}}
                 source={require('../images/hantu2.png')} />

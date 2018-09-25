@@ -4,7 +4,7 @@ import { View,Text, Image, StyleSheet,TouchableOpacity } from 'react-native';
 export default class WelcomeScreen extends React.Component {
     render () {
         return (
-            <View style={{ flex:1,justifyContent: 'center', alignItems: 'center', backgroundColor: '#4189f4' }}>
+            <View style={{ flex:1,justifyContent: 'center', alignItems: 'center', backgroundColor: '#3fd3c4' }}>
                 <Image 
                 style={{  marginBottom: 100,  }}
                 source={require('../images/hantu2.png')} />
