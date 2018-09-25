@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, Picker, TouchableOpacity, Button, TextInput, Modal, StyleSheet } from 'react-native';
 import { RNS3 } from 'react-native-aws3';
 // import db from '../../firebase';
-// import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/cartman';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/cartman';
 import axios from 'axios'
 
 var ImagePicker = require('react-native-image-picker');
@@ -197,16 +197,16 @@ export default class RentScreen extends React.Component {
                         <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: 'black' }}>LOCKER { this.props.navigation.state.params.number }</Text>
                     </View>
                     <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-                        {/* <AwesomeButtonRick 
+                        <AwesomeButtonRick 
                         type="primary"
                         onPress={() => this.useCamera()}
                         >Photo Pickup
-                        </AwesomeButtonRick> */}
+                        </AwesomeButtonRick>
                         <Button 
                         title="Submit"
                          />
                     </View>
-                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
+                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
                         <Text style={{ marginBottom: 6, alignItems: 'flex-start', fontWeight: '500', color: '#1f6691', fontSize: 15 }}>USER</Text>
                         {
                             this.state.listLocker.map((locker, index) => {

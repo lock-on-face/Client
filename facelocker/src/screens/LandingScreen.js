@@ -39,7 +39,7 @@ export default class LandingScreen extends React.Component {
     }
 
     componentDidMount =  () => {
-        axios.get("http://192.168.1.206:3000/locker")
+        axios.get("http://192.168.1.108:3000/locker")
         .then((result => {
             let lockerList = result.data.data
             let emptyLockers = lockerList.filter((locker) => {
