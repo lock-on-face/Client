@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+import axios from "axios"
 
 const styles = StyleSheet.create({
     user: {
@@ -34,11 +35,55 @@ const styles = StyleSheet.create({
 })
 
 export default class LandingScreen extends React.Component {
+    state = {
+        emptyLockers : []
+    }
+
+    componentDidMount =  () => {
+        axios.get("http://192.168.1.206:3000/locker")
+        .then((result => {
+            let lockerList = result.data.data
+            let emptyLockers = lockerList.filter((locker) => {
+                return locker.rented == false;
+            })
+            this.setState({
+                emptyLockers
+            })
+        }))
+        .catch((err => {
+            console.log(err)
+        }))        
+    }
+
+    lockerList = () => {
+        let { emptyLockers } = this.state
+        if (emptyLockers.length == 0) {
+           return (
+               <Text style={styles.header}>
+                   NO LOCKERS AVAILABLE
+               </Text>
+           ) 
+        } else {
+            return (
+                emptyLockers.map((locker, id) => {
+                    return (
+                        <TouchableOpacity
+                            key={id}
+                            style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
+                            onPress={() => this.props.navigation.navigate('Rent', { number: locker.serialNumber })} >
+                            <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>{locker.serialNumber}</Text>
+                        </TouchableOpacity>
+                    )
+                })
+            )
+        }
+    }
+
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#3fd3c4' }}>
                 <View style={{ height: 60, elevation: 5, alignItems: "center", justifyContent: "center", backgroundColor: "#9deae2" }}>
-                    <Text style={styles.header}>++ 思毛與 Locker Page 家吉 ++</Text>
+                    <Text style={styles.header}>++ 思毛 Locker Page 家吉 ++</Text>
                 </View>
                 <View style={styles.userContainer}>
                     <Text>
@@ -64,12 +109,8 @@ export default class LandingScreen extends React.Component {
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
                     {/* <AwesomeButtonRick type="primary">Rent A</AwesomeButtonRick> */}
-                    <TouchableOpacity
-                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
-                        onPress={() => this.props.navigation.navigate('Rent', { number: '1' })} >
-                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 1</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    { this.lockerList()}
+                    {/* <TouchableOpacity
                         style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
                         onPress={() => this.props.navigation.navigate('Rent', { number: '2' })} >
                         <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 2</Text>
@@ -79,7 +120,7 @@ export default class LandingScreen extends React.Component {
                         number="2"
                         onPress={() => this.props.navigation.navigate('Rent', { number: '3' })} >
                         <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 3</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </View>
         )
