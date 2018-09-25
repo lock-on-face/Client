@@ -13,40 +13,39 @@ export default class LoginForm extends React.Component {
     }
 
     Login = () => {
-        console.log('tes');
-        axios({
-            method: 'post',
-            url: `http://192.168.0.107:3000/users/signin`,
-            data: {
-                username: this.state.username,
-                password: this.state.password
-            }
-        })
-        .then((result) => {
-            let cekAdmin = ''
+        // axios({
+        //     method: 'post',
+        //     url: `http://192.168.0.107:3000/users/signin`,
+        //     data: {
+        //         username: this.state.username,
+        //         password: this.state.password
+        //     }
+        // })
+        // .then((result) => {
+        //     let cekAdmin = ''
 
-            if (result.data.isAdmin) {
-                cekAdmin = 'admin'
-            }else {
-                cekAdmin = 'bukan'
-            }
+        //     if (result.data.isAdmin) {
+        //         cekAdmin = 'admin'
+        //     }else {
+        //         cekAdmin = 'bukan'
+        //     }
 
-            AsyncStorage.setItem('token', result.data.token)
-            AsyncStorage.setItem('id', result.data.id)
-            AsyncStorage.setItem('admin', cekAdmin)
-            alert('login sukses')
+        //     AsyncStorage.setItem('token', result.data.token)
+        //     AsyncStorage.setItem('id', result.data.id)
+        //     AsyncStorage.setItem('admin', cekAdmin)
+        //     alert('login sukses')
             
-            if (result.data.isAdmin) {
-                this.props.navigation.navigate('Admin')
-            } else {
-                this.props.navigation.navigate('Landing')
-            }
-        })
-        .catch((err) => {
-            alert('login gagal')
-            console.log(err.message);
-        });
-        // this.props.navigation.navigate('Home')
+        //     if (result.data.isAdmin) {
+        //         this.props.navigation.navigate('Admin')
+        //     } else {
+        //         this.props.navigation.navigate('Landing')
+        //     }
+        // })
+        // .catch((err) => {
+        //     alert('login gagal')
+        //     console.log(err.message);
+        // });
+        this.props.navigation.navigate('Landing')
     }
 
     render () {
