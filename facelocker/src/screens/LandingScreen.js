@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Button } from 'react-native';
 
 const styles = StyleSheet.create({
     user: {
@@ -63,7 +62,6 @@ export default class LandingScreen extends React.Component {
                     {"\n"}
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                    {/* <AwesomeButtonRick type="primary">Rent A</AwesomeButtonRick> */}
                     <TouchableOpacity
                         style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
                         onPress={() => this.props.navigation.navigate('Rent', { number: '1' })} >

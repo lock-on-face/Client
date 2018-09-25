@@ -1,14 +1,15 @@
-const firebase = require('firebase')
+import firebase from 'firebase';
 
 var config = {
-    apiKey: "AIzaSyAsbyEqKMDkeHzzKdZNl5QV739X_fWPGmA",
-    authDomain: "facelockers.firebaseapp.com",
-    databaseURL: "https://facelockers.firebaseio.com",
-    projectId: "facelockers",
-    storageBucket: "",
-    messagingSenderId: "266094262497"
-  };
+  apiKey: "AIzaSyDTk1Z7kmqukNaoqYPlTYKf5OLTozNXrLA",
+  authDomain: "lockonface.firebaseapp.com",
+  databaseURL: "https://lockonface.firebaseio.com",
+  projectId: "lockonface",
+  storageBucket: "lockonface.appspot.com",
+  messagingSenderId: "71461917224"
+};
+  
 firebase.initializeApp(config);
 var db = firebase.database()
 
-module.exports = db
+export default db

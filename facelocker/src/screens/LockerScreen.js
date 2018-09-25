@@ -56,7 +56,7 @@ export default class LockerScreen extends React.Component {
       .then((result) => {
         console.log(result.data);
         alert('Successfully rent a locker')
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('Landing')
       })
       .catch((err) => {
         console.log(err.response);

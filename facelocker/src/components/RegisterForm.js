@@ -25,8 +25,8 @@ export default class RegisterForm extends React.Component {
             email: '',
             password: '',
             phone: '',
-            avatarSource: null,
-            imageFile: ''
+            avatarSource: 'https://image-face.s3.amazonaws.com/images%2FScreen+Shot+2018-09-11+at+8.01.27+PM.png',
+            imageFile: 'https://image-face.s3.amazonaws.com/images%2FScreen+Shot+2018-09-11+at+8.01.27+PM.png'
         }
         this.registerUser = this.registerUser.bind(this)
     }
@@ -34,7 +34,7 @@ export default class RegisterForm extends React.Component {
     registerUser () {
         axios({
             method: 'post',
-            url: `http://localhost:3000/users/signup`,
+            url: `http://192.168.0.107:3000/users/signup`,
             data: {
                 username: this.state.username,
                 email: this.state.email,
@@ -81,14 +81,14 @@ export default class RegisterForm extends React.Component {
             }
                 RNS3.put(source, config)
                 .then((response => {
-                    let response_image = response.body.postResponse.key
-                    let imageFile = response_image.split('/')
-                    console.log("ini dari s3",response.body)
-                    console.log('imageku', imageFile[1]);
-                    this.setState({
-                        avatarSource: response.body.postResponse.location,
-                        imageFile: imageFile[1]
-                    });
+                    console.log("ini dari s3",response.body.postResponse)
+                    // let response_image = response.body.postResponse.key
+                    // let imageFile = response_image.split('/')
+                    // console.log('imageku', imageFile[1]);
+                    // this.setState({
+                    //     avatarSource: response.body.postResponse.location,
+                    //     imageFile: imageFile[1]
+                    // });
                 }))
           
               // You can also display the image using data:
