@@ -14,7 +14,7 @@ export default class AuthLoadingScreen extends React.Component {
         if (admin == 'admin') {
             this.props.navigation.navigate(token ? 'Admin' : 'Auth')
         } else {
-            this.props.navigation.navigate(token ? 'Home' : 'Auth')
+            this.props.navigation.navigate('Landing')
         }
     }
 

@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Image, Picker, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, Picker, TouchableOpacity, Button, TextInput, Modal } from 'react-native';
 import { RNS3 } from 'react-native-aws3';
+import axios from 'axios';
+import db from '../../firebase';
 var ImagePicker = require('react-native-image-picker');
 var options = {
     title: 'Select Avatar',
@@ -46,8 +48,60 @@ export default class RentScreen extends React.Component {
     constructor() {
         super()
         this.state = {
-            lockerNumber: ''
+            lockerNumber: '',
+            listLocker: [],
+            avatarSource: '',
+            name: ''
         }
+    }
+
+    componentDidMount () {
+        this.getAllLocker()
+    }
+
+    addNewUserToLocker = () => {
+        console.log('masuk');
+        axios({
+            method: 'post',
+            url: `http://192.168.0.107:3000/locker`,
+            data: {
+              serialNumber: this.props.navigation.state.params.number,
+              image: this.state.avatarSource,
+              name: this.state.name
+            }
+        })
+            .then((result) => {
+              console.log(result.data);
+              alert('Successfully rent a locker')
+              this.props.navigation.navigate('Landing')
+            })
+            .catch((err) => {
+              console.log(err.response);
+              alert(err.response.data.msg)
+            });
+    }
+
+    getAllLocker = () => {
+        axios({
+            method: 'get',
+            url: `http://192.168.0.107:3000/locker`
+        })
+            .then((result) => {
+                let lockers = result.data.data
+                let new_lockers = []
+                for (let i = 0; i < lockers.length; i++) {
+                    if (lockers[i].serialNumber == this.props.navigation.state.params.number) {
+                        new_lockers.push(lockers[i])
+                    }
+
+                    this.setState({
+                        listLocker: new_lockers
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
     }
 
     useCamera = () => {
@@ -76,14 +130,14 @@ export default class RentScreen extends React.Component {
             }
                 RNS3.put(source, config)
                 .then((response => {
-                    // let response_image = response.body.postResponse.key
+                    let response_image = response.body.postResponse.location
                     // let imageFile = response_image.split('/')
                     console.log("ini dari s3",response.body)
                     // console.log('imageku', imageFile[1]);
-                    // this.setState({
-                    //     avatarSource: response.body.postResponse.location,
-                    //     imageFile: imageFile[1]
-                    // });
+                    this.setState({
+                        avatarSource: response_image,
+                        // imageFile: imageFile[1]
+                    });
                 }))
           
               // You can also display the image using data:
@@ -94,6 +148,18 @@ export default class RentScreen extends React.Component {
             //   });
             }
           });
+    }
+
+    lockSystem = () => {
+        db.ref('users/').set({
+            isLocked: '1'
+        })
+    }
+
+    unlockSystem = () => {
+        db.ref('users/').set({
+            isLocked: '0'
+        })
     }
 
     render() {
@@ -109,26 +175,48 @@ export default class RentScreen extends React.Component {
                         style={{ width: 150, height: 150 }}
                         source={require('../images/locker1234.png')} />
 
-                    <View style={{ elevation: 5, width:350, height: 60, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
-                        <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: 'black' }}>LOCKER { this.props.navigation.state.params.number }</Text>
+                    <View style={{ width:350, height: 60, borderBottomWidth: 2, borderBottomColor: 'white', alignItems: 'center', marginBottom: 20 }}>
+                        <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: 'white' }}>LOCKER { this.props.navigation.state.params.number }</Text>
+                    </View>
+
+                    <View style={{ width:350, height: 60, alignItems: 'center' }}>
+                        <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: 'white' }}>REGISTER USER</Text>
                     </View>
 
                     <View style={{ elevation: 5, width:350, height: 60, backgroundColor: 'white', alignItems: 'center', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
+                        <TextInput placeholder="Add user"
+                        onChangeText={(name) => this.setState({ name })} />
+
                         <Button 
                         title="Choose Avatar"
                         onPress={() => this.useCamera()} />
 
                         <Button 
+                        onPress={() => this.addNewUserToLocker()}
                         title="Submit"
                          />
                     </View>
 
-                    <View style={{ elevation: 5, width:350, height: 160, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
-
+                    <View style={{ elevation: 5, width:350, height: 100, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
+                        <Text style={{ marginBottom: 6, alignItems: 'flex-start', fontWeight: '500', color: 'black', fontSize: 15 }}>USER</Text>
+                        {
+                            this.state.listLocker.map((locker,index) => {
+                                return (
+                                    <View key={index}>
+                                        <View style={{ flexDirection: 'row', marginBottom: 20, marginLeft: -150 }}>
+                                            <Image 
+                                                style={{ width: 60, height: 60, borderRadius: 60, borderWidth: 2, borderColor: 'white' }}
+                                                source={{ uri: locker.image }} />
+                                            <Text style={{ paddingVertical: 12, paddingLeft: 10, fontWeight: '500', fontSize: 20, color: 'black' }}>{ locker.name }</Text>
+                                        </View>
+                                    </View>
+                                )
+                            })
+                        }
                     </View>
 
                     <View>
-                        <TouchableOpacity style={{ bottom: 0 }}>
+                        <TouchableOpacity style={{ bottom: 0 }} onPress={() => this.lockSystem()}>
                             <Image 
                             source={require('../images/lock.png')} />
                         </TouchableOpacity>
