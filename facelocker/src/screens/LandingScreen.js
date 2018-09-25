@@ -1,31 +1,84 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+
+const styles = StyleSheet.create({
+    user: {
+        width: 350,
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    header: {
+        fontSize: 20,
+        color: "#3eb7d2",
+        fontWeight: "bold"
+    },
+    userContainer: {
+        width: 400,
+        height: 100,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    wordFont: {
+        fontSize: 25,
+        fontWeight: "bold",
+        color: "#1f6691"
+    },
+    lockerFont: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#1f6691",
+        textAlign: "center"
+    }
+})
 
 export default class LandingScreen extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#4189f4' }}>
-                <View style={{ backgroundColor: '#4189f4', height: 60, elevation: 5 }}>
-
+            <View style={{ flex: 1, backgroundColor: '#3fd3c4' }}>
+                <View style={{ height: 60, elevation: 5, alignItems: "center", justifyContent: "center", backgroundColor: "#9deae2" }}>
+                    <Text style={styles.header}>++ 思毛與 Locker Page 家吉 ++</Text>
+                </View>
+                <View style={styles.userContainer}>
+                    <Text>
+                        {"\n"}
+                    </Text>
+                    <View style={styles.user}>
+                        <Text style={styles.wordFont}>
+                            Rent A Locker!
+                            {"\n"}
+                        </Text>
+                    </View>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Image
-                        style={{ marginTop: 30, marginBottom: 70 }}
+                        style={{ marginTop: 30, marginBottom: 30 }}
                         source={require('../images/locker1234.png')} />
                 </View>
-
+                <Text style={styles.lockerFont}>
+                    Lockers Available:
+                </Text>
+                <Text>
+                    {"\n"}
+                </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                    {/* <AwesomeButtonRick type="primary">Rent A</AwesomeButtonRick> */}
                     <TouchableOpacity
-                        style={{ backgroundColor: 'orange', borderRadius: 100, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
+                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
                         onPress={() => this.props.navigation.navigate('Rent', { number: '1' })} >
-                        <Text style={{ color: 'white', fontSize: 20, fontWeight: '500' }}>LOCKER 1</Text>
+                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 1</Text>
                     </TouchableOpacity>
-
                     <TouchableOpacity
-                        style={{ backgroundColor: 'orange', borderRadius: 100, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
-                        number="2"
+                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
                         onPress={() => this.props.navigation.navigate('Rent', { number: '2' })} >
-                        <Text style={{ color: 'white', fontSize: 20, fontWeight: '500' }}>LOCKER 2</Text>
+                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 2</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
+                        number="2"
+                        onPress={() => this.props.navigation.navigate('Rent', { number: '3' })} >
+                        <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>LOCKER 3</Text>
                     </TouchableOpacity>
                 </View>
             </View>

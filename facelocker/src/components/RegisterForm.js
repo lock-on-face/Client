@@ -34,7 +34,7 @@ export default class RegisterForm extends React.Component {
     registerUser () {
         axios({
             method: 'post',
-            url: `http://192.168.0.107:3000/users/signup`,
+            url: `http://localhost:3000/users/signup`,
             data: {
                 username: this.state.username,
                 email: this.state.email,
@@ -103,7 +103,7 @@ export default class RegisterForm extends React.Component {
 
     render () {
         return (
-            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#4189f4', flex: 1}}>
+            <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#3fd3c4', flex: 1}}>
                 <Image 
                     style={{ marginTop: 1, marginBottom: 1}}
                     source={require('../images/hantu2.png')} />
