@@ -225,6 +225,12 @@ export default class RentScreen extends React.Component {
                         Rent Locker Number {this.props.navigation.state.params.number}
                     </Text>
                 </View>
+                <Button
+                title="home"
+                onPress={() => {
+                    this.props.navigation.navigate("Landing")
+                }}
+                />
                 <View style={{ alignItems: 'center' }}>
                     <Image
                         style={{ width: 150, height: 150 }}
@@ -248,19 +254,8 @@ export default class RentScreen extends React.Component {
                         <TouchableOpacity
                         onPress={this.rentLocker}
                         >
-                            <Text style={styles.submitStyle}>Submit</Text>
+                            <Text style={styles.submitStyle}>Rent Locker!</Text>
                         </TouchableOpacity>
-                    </View>
-                    <View>
-                        {
-                            this.state.isLocked == '0' ? (<TouchableOpacity style={{ bottom: 0 }} onPress={() => this.lockSystem()}>
-                                <Image
-                                    source={require('../images/lock.png')} />
-                            </TouchableOpacity>) : (<TouchableOpacity style={{ bottom: 0 }} onPress={() => this.lockSystem()}>
-                                <Image
-                                    source={require('../images/unlocked.png')} />
-                            </TouchableOpacity>)
-                        }
                     </View>
                     <Text>
                         {"\n"}
