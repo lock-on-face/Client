@@ -140,7 +140,7 @@ class MyLocker extends Component {
             return (
                 lockerList.map((locker, id) => {
                     return (
-                        <View key={id} style={{ flex: 1, borderWidth: 2, borderColor: "green", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                        <View key={id} style={{ flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
                                 <Text style={styles.wordFont}>
                                     LOCKER NUMBER: {locker.serialNumber}
                                 </Text>
@@ -170,9 +170,11 @@ class MyLocker extends Component {
             )
         } else {
             return (
-                <Text>
-                    You Havent rented any lockers yet
-                </Text>     
+                <View style={{ elevation: 5 }}>
+                    <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: "#1f6691", textAlign: 'center' }}>
+                        You Havent rented any lockers yet
+                    </Text>
+                </View>     
             )
         }
     }
@@ -185,12 +187,13 @@ class MyLocker extends Component {
                 </View>
                 <Button
                 title="home"
+                color="#3fd3c4"
                 onPress={() => {
                     this.props.navigation.navigate("Landing")
                 }}
                 />
                 <View style={{ flex: 9, alignItems: "center", justifyContent: "center" }}>
-                    <View style={{ height: 500, width: 400, flexDirection: "column", backgroundColor: "tomato" }}>
+                    <View style={{ height: 500, width: 400, flexDirection: "column", backgroundColor: '#3fd3c4' }}>
                         { this.lockerLooper() }
                     </View>
                 </View>
