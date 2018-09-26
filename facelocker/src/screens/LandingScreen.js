@@ -1,5 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/cartman'
 import axios from "axios"
 
 const styles = StyleSheet.create({
@@ -23,7 +24,8 @@ const styles = StyleSheet.create({
     wordFont: {
         fontSize: 25,
         fontWeight: "bold",
-        color: "#1f6691"
+        color: "#1f6691",
+        fontFamily: 'notoserif'
     },
     lockerFont: {
         fontSize: 20,
@@ -73,7 +75,7 @@ export default class LandingScreen extends React.Component {
                                 number: locker.serialNumber,
                                 id: locker._id 
                                 })} >
-                            <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>{locker.serialNumber}</Text>
+                            <Text style={{ color: '#88b25b', fontSize: 30, fontWeight: 'bold' }}>{locker.serialNumber}</Text>
                         </TouchableOpacity>
                     )
                 })
@@ -81,21 +83,26 @@ export default class LandingScreen extends React.Component {
         }
     }
 
+    myLocker = () => {
+        this.props.navigation.navigate("Me")
+    }
+
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#3fd3c4' }}>
                 <View style={{ height: 60, elevation: 5, alignItems: "center", justifyContent: "center", backgroundColor: "#9deae2" }}>
-                    <Text style={styles.header}>++ 思毛 Locker Page 家吉 ++</Text>
+                    <Text style={styles.header}>Locker Page</Text>
                 </View>
                 <View style={styles.userContainer}>
                     <Text>
                         {"\n"}
                     </Text>
                     <View style={styles.user}>
-                        <Text style={styles.wordFont}>
-                            Rent A Locker!
-                            {"\n"}
-                        </Text>
+                        <AwesomeButtonRick 
+                        type="secondary"
+                        onPress={() => this.myLocker()}
+                        >My Lockers
+                        </AwesomeButtonRick>
                     </View>
                 </View>
                 <View style={{ alignItems: 'center' }}>

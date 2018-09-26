@@ -43,6 +43,20 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "#1f6691",
         textAlign: "center"
+    },
+    submitStyle: {
+        fontSize: 15,
+        fontWeight: "bold",
+        color: "red"
+    },
+    input: {
+        borderBottomWidth: 1, 
+        borderBottomColor: 'black',
+        width: 300, 
+        height: 50,
+        marginTop: 10,
+        color: 'black',
+        fontSize: 18
     }
 })
 
@@ -54,7 +68,8 @@ export default class RentScreen extends React.Component {
             listLocker: [],
             avatarSource: '',
             name: '',
-            isLocked: ''
+            isLocked: '0',
+            listItems: ''
         }
     }
 
@@ -185,19 +200,20 @@ export default class RentScreen extends React.Component {
         const token = await AsyncStorage.getItem('token');
         if (token !== null) {
             let lockerId = this.props.navigation.state.params.id
-            axios.put(`http://35.240.133.234/locker/${lockerId}`, {
-                rented: true
-            }, { headers: {
+            let input = {
+                rented: true,
+                items: this.state.listItems.split(' ')
+            }
+            axios.put(`http://35.240.133.234/locker/${lockerId}`, input, { headers: {
                 token  
             } })
             .then((result => {
                 alert('succesfully rented locker')
+                this.props.navigation.navigate("Landing")
             }))
             .catch((err => {
                 alert('oops something went wrong')
-            }))
-          // We have data!!
-          
+            })) 
         }
     }
 
@@ -216,35 +232,24 @@ export default class RentScreen extends React.Component {
                     <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
                         <Text style={{ fontWeight: '500', fontSize: 20, paddingVertical: 12, color: 'black' }}>LOCKER { this.props.navigation.state.params.number }</Text>
                     </View>
+                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
+                        <TextInput 
+                        style={ styles.input }
+                        onChangeText={(listItems) => this.setState({ listItems })}
+                        placeholderTextColor="black"
+                        placeholder="listItems" />
+                    </View>
                     <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
                         <AwesomeButtonRick 
-                        type="primary"
+                        type="secondary"
                         onPress={() => this.useCamera()}
                         >Upload Photo
                         </AwesomeButtonRick>
-                        <Button 
-                        title="Submit"
+                        <TouchableOpacity
                         onPress={this.rentLocker}
-                         />
-                    </View>
-                    <View style={{ elevation: 5, width:350, height: 160, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
-                    </View>
-                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
-                        <Text style={{ marginBottom: 6, alignItems: 'flex-start', fontWeight: '500', color: '#1f6691', fontSize: 15 }}>USER</Text>
-                        {
-                            this.state.listLocker.map((locker, index) => {
-                                return (
-                                    <View key={index}>
-                                        <View style={{ flexDirection: 'row', marginBottom: 20, marginLeft: -150 }}>
-                                            <Image
-                                                style={{ width: 60, height: 60, borderRadius: 60, borderWidth: 2, borderColor: '#1f6691' }}
-                                                source={{ uri: locker.image }} />
-                                            <Text style={{ paddingVertical: 12, paddingLeft: 10, fontWeight: '500', fontSize: 20, color: '#1f6691' }}>{locker.name}</Text>
-                                        </View>
-                                    </View>
-                                )
-                            })
-                        }
+                        >
+                            <Text style={styles.submitStyle}>Submit</Text>
+                        </TouchableOpacity>
                     </View>
                     <View>
                         {

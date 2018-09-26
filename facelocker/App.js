@@ -18,6 +18,8 @@ import AdminScreen from './src/screens/AdminScreen';
 import LockerScreen from './src/screens/LockerScreen';
 import LandingScreen from './src/screens/LandingScreen';
 import RentScreen from './src/screens/RentScreen';
+import MyScreen from './src/screens/MyLocker';
+import MyLocker from './src/screens/MyLocker';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -57,7 +59,7 @@ const WelcomeStackNavigator = createStackNavigator({
     }
 })
 
-const LockerStackNavigator = createStackNavigator({
+const LockerStackNavigator = createSwitchNavigator({
     Landing: {
       screen: LandingScreen,
       navigationOptions: () => ({
@@ -70,7 +72,14 @@ const LockerStackNavigator = createStackNavigator({
       navigationOptions: () => ({
         header: null
       })
-    }
+    },
+
+    Me: {
+      screen: MyLocker,
+      navigationOptions: () => ({
+        header: null
+      })
+    }        
 })
 
 const HomeStackNavigator = createStackNavigator({
@@ -80,7 +89,6 @@ const HomeStackNavigator = createStackNavigator({
         header: null
       })
     },
-    
 })
 
 const SwitchScreen = createSwitchNavigator({
