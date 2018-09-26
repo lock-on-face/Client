@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 
 var config = {
-  apiKey: "AIzaSyDTk1Z7kmqukNaoqYPlTYKf5OLTozNXrLA",
-  authDomain: "lockonface.firebaseapp.com",
-  databaseURL: "https://lockonface.firebaseio.com",
-  projectId: "lockonface",
-  storageBucket: "lockonface.appspot.com",
-  messagingSenderId: "71461917224"
+  apiKey: "AIzaSyCNKtQUzWX39NP5b7tc1dccTlc7Mv1Xq4A",
+  authDomain: "lockersys.firebaseapp.com",
+  databaseURL: "https://lockersys.firebaseio.com",
+  projectId: "lockersys",
+  storageBucket: "lockersys.appspot.com",
+  messagingSenderId: "659901433783"
 };
   
 firebase.initializeApp(config);
