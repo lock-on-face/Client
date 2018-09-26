@@ -140,8 +140,8 @@ export default class RentScreen extends React.Component {
                     keyPrefix: "images/",
                     bucket: "image-face",
                     region: 'us-east-1',
-                    accessKey: "AKIAJI5WVTIOMCSIO4NQ",
-                    secretKey: "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",
+                    accessKey: "AKIAIWAQO3NA6JN5FRWA",
+                    secretKey: "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",
                     successAction: 201
                 }
                 RNS3.put(source, config)
@@ -227,6 +227,7 @@ export default class RentScreen extends React.Component {
                 </View>
                 <Button
                 title="home"
+                color="#3fd3c4"
                 onPress={() => {
                     this.props.navigation.navigate("Landing")
                 }}
@@ -243,7 +244,7 @@ export default class RentScreen extends React.Component {
                         style={ styles.input }
                         onChangeText={(listItems) => this.setState({ listItems })}
                         placeholderTextColor="black"
-                        placeholder="listItems" />
+                        placeholder="list items" />
                     </View>
                     <View style={{ elevation: 5, width:350, height: 60, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
                         <AwesomeButtonRick 
