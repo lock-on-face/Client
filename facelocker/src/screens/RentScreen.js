@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Image, Picker, TouchableOpacity, Button, TextInput, Modal, StyleSheet } from 'react-native';
+import { View, Text, Image, Picker, TouchableOpacity, Button, TextInput, Modal, StyleSheet, ScrollView, AsyncStorage } from 'react-native';
 import { RNS3 } from 'react-native-aws3';
-// import db from '../../firebase';
+import db from '../../firebase';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/cartman';
 import axios from 'axios'
 
@@ -66,7 +66,7 @@ export default class RentScreen extends React.Component {
         console.log('masuk');
         axios({
             method: 'post',
-            url: `http://192.168.0.107:3000/locker`,
+            url: `http://35.240.133.234/locker`,
             data: {
                 serialNumber: this.props.navigation.state.params.number,
                 image: this.state.avatarSource,
@@ -87,7 +87,7 @@ export default class RentScreen extends React.Component {
     getAllLocker = () => {
         axios({
             method: 'get',
-            url: `http://192.168.0.107:3000/locker`
+            url: `http://35.240.133.234/locker`
         })
             .then((result) => {
                 let lockers = result.data.data
@@ -151,39 +151,59 @@ export default class RentScreen extends React.Component {
         });
     }
 
-    // lockSystem = () => {
-    //     if (this.state.isLocked == '0') {
-    //         db.ref('users/').set({
-    //             isLocked: '1'
-    //         })
+    lockSystem = () => {
+        if (this.state.isLocked == '0') {
+            db.ref('users/').set({
+                isLocked: '1'
+            })
     
-    //         this.setState({
-    //             isLocked: '1'
-    //         })
-    //     } else {
-    //         db.ref('users/').set({
-    //             isLocked: '0'
-    //         })
+            this.setState({
+                isLocked: '1'
+            })
+        } else {
+            db.ref('users/').set({
+                isLocked: '0'
+            })
     
-    //         this.setState({
-    //             isLocked: '0'
-    //         })
-    //     }
-    // }
+            this.setState({
+                isLocked: '0'
+            })
+        }
+    }
 
-    // unlockSystem = () => {
-    //     db.ref('users/').set({
-    //         isLocked: '0'
-    //     })
+    unlockSystem = () => {
+        db.ref('users/').set({
+            isLocked: '0'
+        })
 
-    //     this.setState({
-    //         isLocked: '1'
-    //     })
-    // }
+        this.setState({
+            isLocked: '1'
+        })
+    }
+
+    rentLocker = async () => {
+        const token = await AsyncStorage.getItem('token');
+        if (token !== null) {
+            let lockerId = this.props.navigation.state.params.id
+            axios.put(`http://35.240.133.234/locker/${lockerId}`, {
+                rented: true
+            }, { headers: {
+                token  
+            } })
+            .then((result => {
+                alert('succesfully rented locker')
+            }))
+            .catch((err => {
+                alert('oops something went wrong')
+            }))
+          // We have data!!
+          
+        }
+    }
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#3fd3c4' }}>
+            <ScrollView style={{ backgroundColor: '#3fd3c4' }}>
                 <View style={{ backgroundColor: '#9deae2', height: 60, elevation: 5, justifyContent: "center", alignItems: "center" }}>
                     <Text style={styles.header}>
                         Rent Locker Number {this.props.navigation.state.params.number}
@@ -200,13 +220,16 @@ export default class RentScreen extends React.Component {
                         <AwesomeButtonRick 
                         type="primary"
                         onPress={() => this.useCamera()}
-                        >Photo Pickup
+                        >Upload Photo
                         </AwesomeButtonRick>
                         <Button 
                         title="Submit"
+                        onPress={this.rentLocker}
                          />
                     </View>
-                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
+                    <View style={{ elevation: 5, width:350, height: 160, backgroundColor: '#add9ed', alignItems: 'center', marginBottom: 20 }}>
+                    </View>
+                    <View style={{ elevation: 5, width: 350, height: 100, backgroundColor: 'white', alignItems: 'center', marginBottom: 20 }}>
                         <Text style={{ marginBottom: 6, alignItems: 'flex-start', fontWeight: '500', color: '#1f6691', fontSize: 15 }}>USER</Text>
                         {
                             this.state.listLocker.map((locker, index) => {
@@ -225,17 +248,20 @@ export default class RentScreen extends React.Component {
                     </View>
                     <View>
                         {
-                            this.state.isLocked == '0' ? (<TouchableOpacity style={{ bottom: 0 }} onPress={() => alert("hehehe")}>
+                            this.state.isLocked == '0' ? (<TouchableOpacity style={{ bottom: 0 }} onPress={() => this.lockSystem()}>
                                 <Image
                                     source={require('../images/lock.png')} />
-                            </TouchableOpacity>) : (<TouchableOpacity style={{ bottom: 0 }} onPress={() => alert("hehehe")}>
+                            </TouchableOpacity>) : (<TouchableOpacity style={{ bottom: 0 }} onPress={() => this.lockSystem()}>
                                 <Image
                                     source={require('../images/unlocked.png')} />
                             </TouchableOpacity>)
                         }
                     </View>
+                    <Text>
+                        {"\n"}
+                    </Text>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }

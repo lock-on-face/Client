@@ -39,7 +39,7 @@ export default class LandingScreen extends React.Component {
     }
 
     componentDidMount =  () => {
-        axios.get("http://192.168.1.108:3000/locker")
+        axios.get("http://35.240.133.234/locker")
         .then((result => {
             let lockerList = result.data.data
             let emptyLockers = lockerList.filter((locker) => {
@@ -69,7 +69,10 @@ export default class LandingScreen extends React.Component {
                         <TouchableOpacity
                             key={id}
                             style={{ backgroundColor: '#c0ed90', borderRadius: 70, width: 70, height: 70, alignItems: 'center', justifyContent: 'center', elevation: 5 }}
-                            onPress={() => this.props.navigation.navigate('Rent', { number: locker.serialNumber })} >
+                            onPress={() => this.props.navigation.navigate('Rent', {
+                                number: locker.serialNumber,
+                                id: locker._id 
+                                })} >
                             <Text style={{ color: '#88b25b', fontSize: 12, fontWeight: '500' }}>{locker.serialNumber}</Text>
                         </TouchableOpacity>
                     )
